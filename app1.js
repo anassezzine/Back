@@ -46,17 +46,25 @@ function sortByCountCompany()
   return sortedByCount;
 }
 
+// Afficher la liste des pays et le compteur d'utilisateurs à côté
+function print(sortedByCount)
+{
+  sortedByCount.forEach(([country, count]) => {
+    console.log(`${country} - ${count}`);
+  })
+}
+
+
+
 if(getArg(2) === 'country')
 {
   countByCountry = getCounterCountry()
 
   // Trier les pays par ordre décroissant de compteur d'utilisateurs
-  const sortedByCount = sortByCountCountry();
+  sortedByCount = sortByCountCountry();
 
   // Afficher la liste des pays et le compteur d'utilisateurs à côté
-  sortedByCount.forEach(([country, count]) => {
-    console.log(`${country} - ${count}`);
-  });
+  print(sortedByCount);
 }
 
 else if(getArg(2) === 'company')
@@ -65,10 +73,8 @@ else if(getArg(2) === 'company')
   countByCompany = getCounterCompany();
 
   // Trier les companies par ordre décroissant de compteur d'utilisateurs
-  const sortedByCount = sortByCountCompany();
+  sortedByCount = sortByCountCompany();
 
   // Afficher la liste des companies et le compteur d'utilisateurs à côté
-  sortedByCount.forEach(([company, count]) => {
-    console.log(`${company} - ${count}`);
-  });
+  print(sortedByCount);
 }
