@@ -32,13 +32,26 @@ function getCounterCompany()
   return countByComapny;
 }
 
+// Trier les pays par ordre décroissant de compteur d'utilisateurs
+function sortByCountCountry()
+{
+  const sortedByCount = Object.entries(countByCountry).sort((a, b) => b[1] - a[1]);
+  return sortedByCount;
+}
+
+// Trier les companies par ordre décroissant de compteur d'utilisateurs
+function sortByCountCompany()
+{
+  const sortedByCount = Object.entries(countByComapany).sort((a, b) => b[1] - a[1]);
+  return sortedByCount;
+}
+
 if(getArg(2) === 'country')
 {
-    // Calculer le compteur d'utilisateurs par pays
   countByCountry = getCounterCountry()
 
   // Trier les pays par ordre décroissant de compteur d'utilisateurs
-  const sortedByCount = Object.entries(countByCountry).sort((a, b) => b[1] - a[1]);
+  const sortedByCount = sortByCountCountry();
 
   // Afficher la liste des pays et le compteur d'utilisateurs à côté
   sortedByCount.forEach(([country, count]) => {
@@ -49,10 +62,10 @@ if(getArg(2) === 'country')
 else if(getArg(2) === 'company')
 {
     // Calculer le compteur d'utilisateurs par company
-  const countByCompany = getCounterCompany()
+  countByCompany = getCounterCompany();
 
   // Trier les companies par ordre décroissant de compteur d'utilisateurs
-  const sortedByCount = Object.entries(countByCompany).sort((a, b) => b[1] - a[1]);
+  const sortedByCount = sortByCountCompany();
 
   // Afficher la liste des companies et le compteur d'utilisateurs à côté
   sortedByCount.forEach(([company, count]) => {
