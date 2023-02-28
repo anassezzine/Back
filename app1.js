@@ -5,7 +5,13 @@ let rawdata = fs.readFileSync('users.json');
 let users = JSON.parse(rawdata);
 
 // Récupérer l'argument d'entrée
-const input = process.argv[2];
+// indice est la position de l'élèment qu'on veut récuperer 
+function getArg(indice)
+{
+  const input = process.argv[indice];
+  return input;
+}
+
 
 if(input === 'country')
 {
