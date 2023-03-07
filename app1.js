@@ -1,8 +1,26 @@
 const fs = require('fs');
+const readline = require('readline');
+
 
 // Lire le fichier des utilisateurs
 let rawdata = fs.readFileSync('users.json');
 let users = JSON.parse(rawdata);
+
+// Définir les options du menu
+const menu = [
+  { name: 'Compter les utilisateurs par pays', value: 'country' },
+  { name: 'Compter les utilisateurs par entreprise', value: 'company' },
+  { name: 'Quitter', value: 'quit' },
+];
+
+
+// Afficher le menu
+function displayMenu() {
+  console.log('Que voulez-vous faire ?');
+  menu.forEach((option, index) => {
+    console.log(`${index + 1}. ${option.name}`);
+  });
+}
 
 // Récupérer l'argument d'entrée
 // indice est la position de l'élèment qu'on veut récuperer 
@@ -54,27 +72,18 @@ function print(sortedByCount)
   })
 }
 
-
-
 if(getArg(2) === 'country')
 {
   countByCountry = getCounterCountry()
-
-  // Trier les pays par ordre décroissant de compteur d'utilisateurs
   sortedByCount = sortByCountCountry();
-
-  // Afficher la liste des pays et le compteur d'utilisateurs à côté
   print(sortedByCount);
 }
-
 else if(getArg(2) === 'company')
 {
-    // Calculer le compteur d'utilisateurs par company
   countByCompany = getCounterCompany();
-
-  // Trier les companies par ordre décroissant de compteur d'utilisateurs
   sortedByCount = sortByCountCompany();
-
-  // Afficher la liste des companies et le compteur d'utilisateurs à côté
   print(sortedByCount);
 }
+
+// Démarrer le programme en affichant le menu
+displayMenu();
