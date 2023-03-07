@@ -13,7 +13,6 @@ const menu = [
   { name: 'Quitter', value: 'quit' },
 ];
 
-
 // Afficher le menu
 function displayMenu() {
   console.log('Que voulez-vous faire ?');
@@ -22,12 +21,28 @@ function displayMenu() {
   });
 }
 
-// Récupérer l'argument d'entrée
-// indice est la position de l'élèment qu'on veut récuperer 
-function getArg()
-{
-  const input = process.argv[2];
-  return input;
+// Créer l'interface de ligne de commande pour lire les entrées utilisateur
+const readl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Lire l'entrée utilisateur
+function readInput() {
+  readl.question(`Entrez un chiffre entre 1 et ${menu.length}: `, (answer) => {
+    const optionIndex = parseInt(answer) - 1;
+    if (optionIndex >= 0 && optionIndex < menu.length) {
+      const option = menu[optionIndex];
+      if (option.value === 'quit') {
+        readl.close();
+      }else {
+        counter(option.value);
+      }
+    } else {
+      console.log(`Choix invalide. Entrez un chiffre entre 1 et ${menu.length}.`);
+      readInput();
+    }
+  });
 }
 
 // Calculer le compteur d'utilisateurs par pays
@@ -60,30 +75,44 @@ function sortByCountCountry()
 // Trier les companies par ordre décroissant de compteur d'utilisateurs
 function sortByCountCompany()
 {
-  const sortedByCount = Object.entries(countByComapany).sort((a, b) => b[1] - a[1]);
+  const sortedByCount = Object.entries(countByCompany).sort((a, b) => b[1] - a[1]);
   return sortedByCount;
 }
 
 // Afficher la liste des pays et le compteur d'utilisateurs à côté
-function print(sortedByCount)
+function printCountry(sortedByCount)
 {
   sortedByCount.forEach(([country, count]) => {
     console.log(`${country} - ${count}`);
   })
+  readInput();
 }
 
-if(getArg(2) === 'country')
+function printCompany(sortedByCount)
+{
+  sortedByCount.forEach(([company, count]) => {
+    console.log(`${company} - ${count}`);
+  })
+  readInput();
+}
+
+function counter(counterby)
+{
+  if(counterby === 'country')
 {
   countByCountry = getCounterCountry()
   sortedByCount = sortByCountCountry();
-  print(sortedByCount);
+  printCountry(sortedByCount);
 }
-else if(getArg(2) === 'company')
+else if(counterby === 'company')
 {
   countByCompany = getCounterCompany();
   sortedByCount = sortByCountCompany();
-  print(sortedByCount);
+  printCompany(sortedByCount);
+} 
 }
+
 
 // Démarrer le programme en affichant le menu
 displayMenu();
+readInput();
