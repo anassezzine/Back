@@ -38,49 +38,42 @@ const datalayer = {
   },
 
   addCustomer: function (customer) {
-    // read json file
-    const data = fs.readFileSync(filename);
+    // Récupère la liste des clients depuis le fichier JSON
+    let customers = this.getAllCustomers();
 
-    // parse to object
-    let customers = JSON.parse(data);
+    // Génère un nouvel identifiant pour le client en fonction du dernier identifiant de la liste
+    const lastId = customers.length > 0 ? customers[customers.length - 1].id : 0;
+    customer.id = lastId + 1;
 
-    // generate unique ID for the new customer
-    customer.id = customers.length + 1;
-
-    // add new customer to array
+    // Ajoute le nouveau client à la liste
     customers.push(customer);
 
-    // write to file
-    fs.writeFileSync(filename, JSON.stringify(customers, null, 2));
+    // Écrit la nouvelle liste de clients dans le fichier JSON
+    fs.writeFileSync(filename, JSON.stringify(customers));
 
-    // return the newly added customer
     return customer;
-  },
+},
 
-  updateCustomer: function (id, updatedCustomer) {
-    // read json file
-    const data = fs.readFileSync(filename);
 
-    // parse to object
-    let customers = JSON.parse(data);
+updateCustomer: function (id, customer) {
+    // Récupère la liste des clients depuis le fichier JSON
+    let customers = this.getAllCustomers();
 
-    // find the index of the customer to update
-    const index = customers.findIndex((customer) => customer.id === id);
+    // Trouve le client correspondant à l'identifiant donné
+    const index = customers.findIndex(c => c.id === id);
 
     if (index !== -1) {
-      // update the customer object
-      customers[index] = updatedCustomer;
+        // Met à jour le client correspondant
+        customers[index] = { ...customers[index], ...customer };
 
-      // write to file
-      fs.writeFileSync(filename, JSON.stringify(customers, null, 2));
+        // Écrit la nouvelle liste de clients dans le fichier JSON
+        fs.writeFileSync(filename, JSON.stringify(customers));
 
-      // return the updated customer
-      return updatedCustomer;
+        return customers[index];
     } else {
-      // return null if customer not found
-      return null;
+        return null;
     }
-  },
+},
 
   deleteCustomer: function (id) {
     // read json file

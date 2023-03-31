@@ -47,13 +47,17 @@ const business = {
     },
 
     addCustomer: function (customer) {
-        // TODO: Implémenter la logique pour ajouter un client
-        throw new Error("Not implemented yet");
+        // Ajoute le nouveau client à la base de données via le datalayer
+        const newCustomer = dal.addCustomer(customer);
+    
+        return newCustomer;
     },
 
     updateCustomer: function (id, customer) {
-        // TODO: Implémenter la logique pour mettre à jour un client
-        throw new Error("Not implemented yet");
+        // Met à jour le client dans la base de données via le datalayer
+        const updatedCustomer = dal.updateCustomer(id, customer);
+    
+        return updatedCustomer;
     },
 
     deleteCustomer: function (id) {
