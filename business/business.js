@@ -1,6 +1,6 @@
 const dal = require("../data/datalayer");
 // const _ = require("underscore"); //voir a quoi ca sert
- 
+
 
 const defaultNumber = 10;
 const defaultPage = 1;
@@ -49,14 +49,14 @@ const business = {
     addCustomer: function (customer) {
         // Ajoute le nouveau client à la base de données via le datalayer
         const newCustomer = dal.addCustomer(customer);
-    
+
         return newCustomer;
     },
 
     updateCustomer: function (id, customer) {
         // Met à jour le client dans la base de données via le datalayer
         const updatedCustomer = dal.updateCustomer(id, customer);
-    
+
         return updatedCustomer;
     },
 
@@ -64,21 +64,21 @@ const business = {
         // check if the customer exists
         const customer = dal.getCustomerById(customerId);
         if (!customer) {
-          return {
-            success: false,
-            message: "Customer not found"
-          };
+            return {
+                success: false,
+                message: "Customer not found"
+            };
         }
-      
+
         // delete the customer from the data layer
         dal.deleteCustomer(customerId);
-      
+
         return {
-          success: true,
-          message: "Customer deleted successfully"
+            success: true,
+            message: "Customer deleted successfully"
         };
-      }
-      
+    }
+
 };
 
 module.exports = business;

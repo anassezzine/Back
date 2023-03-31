@@ -18,10 +18,10 @@ const apiServ = {
 
         app.post("/api/customers", function (req, res) {
             const customer = req.body;
-        
+
             // Appelle la fonction addCustomer du module business pour ajouter le client
             const newCustomer = business.addCustomer(customer);
-        
+
             // Retourne le nouveau client créé avec un code HTTP 201
             res.status(201).json(newCustomer);
         });
@@ -29,10 +29,10 @@ const apiServ = {
         app.put("/api/customers/:id", function (req, res) {
             const id = parseInt(req.params.id);
             const customer = req.body;
-        
+
             // Appelle la fonction updateCustomer du module business pour mettre à jour le client
             const updatedCustomer = business.updateCustomer(id, customer);
-        
+
             if (updatedCustomer) {
                 // Retourne le client mis à jour avec un code HTTP 200
                 res.json(updatedCustomer);
@@ -42,16 +42,16 @@ const apiServ = {
             }
         });
 
-        app.delete("/api/customers/:customerId", function(req, res){
+        app.delete("/api/customers/:customerId", function (req, res) {
             const customerId = req.params.customerId;
-            
+
             // call the business layer to delete the customer
             const result = business.deleteCustomer(customerId);
-          
+
             // send the response
             res.json(result);
-          });
-          
+        });
+
 
         app.listen(port, function () {
             console.log("Server running on port " + port);
