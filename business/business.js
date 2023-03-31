@@ -60,10 +60,25 @@ const business = {
         return updatedCustomer;
     },
 
-    deleteCustomer: function (id) {
-        // TODO: Implémenter la logique pour supprimer un client
-        throw new Error("Not implemented yet");
-    },
+    deleteCustomer: function (customerId) {
+        // check if the customer exists
+        const customer = dal.getCustomerById(customerId);
+        if (!customer) {
+          return {
+            success: false,
+            message: "Customer not found"
+          };
+        }
+      
+        // delete the customer from the data layer
+        dal.deleteCustomer(customerId);
+      
+        return {
+          success: true,
+          message: "Customer deleted successfully"
+        };
+      }
+      
 };
 
 module.exports = business;

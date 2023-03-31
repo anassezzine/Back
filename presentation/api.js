@@ -42,12 +42,16 @@ const apiServ = {
             }
         });
 
-        app.delete("/api/customers/:id", function (req, res) {
-            const id = req.params.id;
-
-            // TODO: Ajouter la logique pour supprimer un client
-            throw new Error("Not implemented yet");
-        });
+        app.delete("/api/customers/:customerId", function(req, res){
+            const customerId = req.params.customerId;
+            
+            // call the business layer to delete the customer
+            const result = business.deleteCustomer(customerId);
+          
+            // send the response
+            res.json(result);
+          });
+          
 
         app.listen(port, function () {
             console.log("Server running on port " + port);

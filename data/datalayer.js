@@ -75,30 +75,26 @@ updateCustomer: function (id, customer) {
     }
 },
 
-  deleteCustomer: function (id) {
-    // read json file
-    const data = fs.readFileSync(filename);
+updateCustomer: function (id, customer) {
+    // Récupère la liste des clients depuis le fichier JSON
+    let customers = this.getAllCustomers();
 
-    // parse to object
-    let customers = JSON.parse(data);
-
-    // find the index of the customer to delete
-    const index = customers.findIndex((customer) => customer.id === id);
+    // Trouve le client correspondant à l'identifiant donné
+    const index = customers.findIndex(c => c.id === id);
 
     if (index !== -1) {
-      // remove the customer object from the array
-      customers.splice(index, 1);
+        // Met à jour le client correspondant
+        customers[index] = { ...customers[index], ...customer };
 
-      // write to file
-      fs.writeFileSync(filename, JSON.stringify(customers, null, 2));
+        // Écrit la nouvelle liste de clients dans le fichier JSON
+        fs.writeFileSync(filename, JSON.stringify(customers));
 
-      // return true to indicate successful deletion
-      return true;
+        return customers[index];
     } else {
-      // return false if customer not found
-      return false;
+        return null;
     }
-  },
+},
+
 };
 
 module.exports = datalayer;
