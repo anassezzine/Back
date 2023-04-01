@@ -22,8 +22,8 @@ const apiServ = {
             // Appelle la fonction addCustomer du module business pour ajouter le client
             const newCustomer = business.addCustomer(customer);
 
-            // Retourne le nouveau client créé avec un code HTTP 201
-            res.status(201).json(newCustomer);
+            // Retourne le nouveau client créé avec un code HTTP 200
+            res.status(200).json(newCustomer);
         });
 
         app.put("/api/customers/:id", function (req, res) {
@@ -37,8 +37,8 @@ const apiServ = {
                 // Retourne le client mis à jour avec un code HTTP 200
                 res.json(updatedCustomer);
             } else {
-                // Retourne un message d'erreur avec un code HTTP 404 si le client n'a pas été trouvé
-                res.status(404).json({ message: "Client not found" });
+                // Retourne un message d'erreur avec un code HTTP 400 si le client n'a pas été trouvé
+                res.status(400).json({ message: "Client not found" });
             }
         });
 

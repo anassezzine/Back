@@ -1,6 +1,5 @@
 const dal = require("../data/datalayer");
-// const _ = require("underscore"); //voir a quoi ca sert
-
+const express = require("express");
 
 const defaultNumber = 10;
 const defaultPage = 1;
@@ -62,7 +61,15 @@ const business = {
 
     deleteCustomer: function (customerId) {
         // check if the customer exists
-        const customer = dal.getCustomerById(customerId);
+        let customer = null;
+        const customers = dal.getAllCustomers();
+        for (let i = 0; i < customers.length; i++) {
+            if (customers[i].id === customerId) {
+                // récupérer le client correspondant à l'id
+                customer = customers[i];
+                break;
+            }
+        }
         if (!customer) {
             return {
                 success: false,
