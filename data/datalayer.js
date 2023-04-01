@@ -1,12 +1,13 @@
 const fs = require("fs");
 const path = require("path");
+const { get } = require("http");
 
 const filename = path.join(__dirname, "../data/customers.json");
 
 const datalayer = {
     getAllCustomers: function () {
         // read json file
-        const data = fs.readFileSync(filename);
+        const data = fs.readFileSync(filename, "utf8");
 
         // parse to object
         const customers = JSON.parse(data);
