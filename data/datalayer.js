@@ -79,14 +79,21 @@ const datalayer = {
     deleteCustomer: function (id) {
         let customers = this.getAllCustomers();
         const index = customers.findIndex(c => c.id === id);
-        if (index >= 0) {
-            const customer = customers[index];
-            customers.splice(index, 1);
-            return customer;
+        if (index !== -1) {
+          customers.splice(index, 1);
+          this.saveAllCustomers(customers);
+          return {
+            success: true,
+            message: "Customer deleted successfully"
+          };
         } else {
-            return null;
+          return {
+            success: false,
+            message: "Customer not found"
+          };
         }
     },
+      
 };
 
 module.exports = datalayer;
