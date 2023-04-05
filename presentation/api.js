@@ -14,9 +14,9 @@ const apiServ = {
             const customers = business.getCustomers(number, page);
 
             res.json(customers);
-        });
+        })      
 
-        app.post("/api/customers", function (req, res) {
+        app.post("/api/customers/add", function (req, res) {
             const customer = req.body;
 
             // Appelle la fonction addCustomer du module business pour ajouter le client
@@ -24,7 +24,7 @@ const apiServ = {
 
             // Retourne le nouveau client créé avec un code HTTP 200
             res.status(200).json(newCustomer);
-        });
+        })
 
         app.put("/api/customers/:id", function (req, res) {
             const id = parseInt(req.params.id);

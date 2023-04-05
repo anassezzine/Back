@@ -48,7 +48,7 @@ const datalayer = {
 
         // Ajoute le nouveau client à la liste
         customers.push(customer);
-
+        console.log(customer);
         // Écrit la nouvelle liste de clients dans le fichier JSON
         fs.writeFileSync(filename, JSON.stringify(customers));
 
