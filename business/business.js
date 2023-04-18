@@ -52,15 +52,13 @@ const business = {
         return newCustomer;
     },
 
-    updateCustomer: function (id, customer) {
+    updateCustomer: function (customer) {
         // Met à jour le client dans la base de données via le datalayer
-        const updatedCustomer = dal.updateCustomer(id, customer);
-
-        return updatedCustomer;
+        dal.updateCustomer(customer);
     },
 
-    deleteCustomer: function (customerId) {
-        dal.deleteCustomer(customerId);
+    deleteCustomer: function (customer) {
+        dal.deleteCustomer(customer);
     }
 
 };

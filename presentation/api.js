@@ -26,23 +26,14 @@ const apiServ = {
             res.status(200).json(newCustomer);
         })
 
-        app.put("/api/customers/:id", function (req, res) {
-            const id = parseInt(req.params.id);
+        app.put("/api/customers/",(req, res) => {
+            const id = req.id;
             const customer = req.body;
+            business.updateCustomer(customer);
+            res.status(200).send({status: 'ok'});
+        })
 
-            // Appelle la fonction updateCustomer du module business pour mettre à jour le client
-            const updatedCustomer = business.updateCustomer(id, customer);
-
-            if (updatedCustomer) {
-                // Retourne le client mis à jour avec un code HTTP 200
-                res.json(updatedCustomer);
-            } else {
-                // Retourne un message d'erreur avec un code HTTP 400 si le client n'a pas été trouvé
-                res.status(400).json({ message: "Client not found" });
-            }
-        });
-
-        app.delete('/api/clients', (req, res) => {
+        app.delete('/api/customers', (req, res) => {
             const clientid = req.query.id;
             business.deleteCustomer(clientid);
             res.status(200).send({ status: 'ok' });

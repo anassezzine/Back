@@ -56,37 +56,38 @@ const datalayer = {
     },
 
 
-    updateCustomer: function (id, customer) {
-        // Récupère la liste des clients depuis le fichier JSON
-        let customers = this.getAllCustomers();
+    updateCustomer: function (customer) {
+        //Charge le contenu du fichier JSON
+        const data = fs.readFileSync(file);
+        const clients = JSON.parse(data);
 
-        // Trouve le client correspondant à l'identifiant donné
-        const index = customers.findIndex(c => c.id === id);
+        // Trouve l'objet à mettre à jour
+        const objectid = clients.findIndex(obj => obj.id === customer.id);
 
-        if (index !== -1) {
-            // Met à jour le client correspondant
-            customers[index] = { ...customers[index], ...customer };
-
-            // Écrit la nouvelle liste de clients dans le fichier JSON
-            fs.writeFileSync(filename, JSON.stringify(customers));
-
-            return customers[index];
+        // Si l'objet existe, met à jour ses propriétés avec les données fournies
+        if (objectid !== -1) {
+            const updatedObject = { ...clients[objectid], ...user };
+            clients[objectid] = updatedObject;
+            // Écrit le nouveau contenu du fichier JSON
+            const updatedData = JSON.stringify(clients, null, 2);
+            fs.writeFileSync(file, updatedData);
+            console.log(`success`);
         } else {
-            return null;
+            console.log(`error`);
         }
     },
 
-    deleteCustomer: function (id) {
+    deleteCustomer: function (removecustomer) {
         //get data from json file
         const rawdata = fs.readFileSync(file);
         //parse to object
-        let newclients = JSON.parse(rawdata);
+        let newcustomer = JSON.parse(rawdata);
         //filter permet de retirer un user en fonction du param removeuser
-        const id = newclients.findIndex(user => user.id === parseInt(removeuser));
+        const id = newcustomer.findIndex(customer => customer.id === parseInt(removecustomer));
         console.log(id);
         if (id !== -1) {
-            newclients.splice(id, 1);
-            fs.writeFileSync(file, JSON.stringify(newclients, null, 2));
+            newcustomer.splice(id, 1);
+            fs.writeFileSync(file, JSON.stringify(newcustomer, null, 2));
             return { success: true, message: "User got deleted." };
         } else
             return { success: false, message: "ID Not found." };
