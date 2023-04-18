@@ -8,7 +8,7 @@ Modifier un client
 Supprimer un client
 L'API a été développée en utilisant Node.js, Express et JavaScript. Les dépendances nécessaires pour le projet sont listées dans le fichier package.json.
 
-Pour exécuter l'API, vous devez installer les dépendances en utilisant la commande npm install. Ensuite, vous pouvez exécuter le fichier app.js en utilisant la commande node app.js. Par défaut, l'API sera accessible à l'adresse http://localhost:3000.
+Pour exécuter l'API, vous devez installer les dépendances en utilisant la commande npm install express. Ensuite, vous pouvez exécuter le fichier server.js en utilisant la commande node server.js. Par défaut, l'API sera accessible à l'adresse http://localhost:3000.
 
 Endpoints de l'API :
 
