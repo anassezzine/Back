@@ -14,7 +14,7 @@ const apiServ = {
             const customers = business.getCustomers(number, page);
 
             res.json(customers);
-        })      
+        })
 
         app.post("/api/customers/add", function (req, res) {
             const customer = req.body;
@@ -42,15 +42,11 @@ const apiServ = {
             }
         });
 
-        app.delete("/api/customers/:customerId", function (req, res) {
-            const customerId = req.params.customerId;
-
-            // call the business layer to delete the customer
-            const result = business.deleteCustomer(customerId);
-
-            // send the response
-            res.json(result);
-        });
+        app.delete('/api/clients', (req, res) => {
+            const clientid = req.query.id;
+            business.deleteCustomer(clientid);
+            res.status(200).send({ status: 'ok' });
+        })
 
 
         app.listen(port, function () {

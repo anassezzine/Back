@@ -60,30 +60,7 @@ const business = {
     },
 
     deleteCustomer: function (customerId) {
-        // check if the customer exists
-        let customer = null;
-        const customers = dal.getAllCustomers();
-        for (let i = 0; i < customers.length; i++) {
-            if (customers[i].id === customerId) {
-                // récupérer le client correspondant à l'id
-                customer = customers[i];
-                break;
-            }
-        }
-        if (!customer) {
-            return {
-                success: false,
-                message: "Customer not found"
-            };
-        }
-
-        // delete the customer from the data layer
         dal.deleteCustomer(customerId);
-
-        return {
-            success: true,
-            message: "Customer deleted successfully"
-        };
     }
 
 };

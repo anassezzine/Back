@@ -77,23 +77,21 @@ const datalayer = {
     },
 
     deleteCustomer: function (id) {
-        let customers = this.getAllCustomers();
-        const index = customers.findIndex(c => c.id === id);
-        if (index !== -1) {
-          customers.splice(index, 1);
-          this.saveAllCustomers(customers);
-          return {
-            success: true,
-            message: "Customer deleted successfully"
-          };
-        } else {
-          return {
-            success: false,
-            message: "Customer not found"
-          };
-        }
+        //get data from json file
+        const rawdata = fs.readFileSync(file);
+        //parse to object
+        let newclients = JSON.parse(rawdata);
+        //filter permet de retirer un user en fonction du param removeuser
+        const id = newclients.findIndex(user => user.id === parseInt(removeuser));
+        console.log(id);
+        if (id !== -1) {
+            newclients.splice(id, 1);
+            fs.writeFileSync(file, JSON.stringify(newclients, null, 2));
+            return { success: true, message: "User got deleted." };
+        } else
+            return { success: false, message: "ID Not found." };
     },
-      
+
 };
 
 module.exports = datalayer;
